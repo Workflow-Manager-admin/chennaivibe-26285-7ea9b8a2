@@ -40,10 +40,32 @@ const EXPERIENCE_IMAGES = [
 ];
 
 const FILTER_CATEGORIES = [
-  { name: "Art & Creativity", img: "https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?auto=format&fit=crop&w=200&q=50" },
-  { name: "Culinary", img: "https://images.unsplash.com/photo-1519864600265-abb686776c1c?auto=format&fit=crop&w=200&q=50" },
-  { name: "Wellness", img: "https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=200&q=50" },
-  { name: "Culture", img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=50" },
+  { 
+    name: "Art & Creativity",
+    img: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Kapaleeshwarar_Temple1.jpg",
+    alt: "Colorful gopuram (temple tower) of Kapaleeshwarar Temple, Mylapore",
+    credit: "Photo: Prateek Karandikar, CC BY-SA 3.0"
+  },
+  {
+    name: "Culinary",
+    img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Sowcarpet_street%2C_Chennai.jpg",
+    alt: "Street food vendors and snack shops in a vibrant Sowcarpet lane, Chennai",
+    credit: "Photo: PlaneMad/Wikimedia, CC BY-SA 3.0"
+  },
+  {
+    name: "Wellness",
+    img: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Marina_Beach_Chennai_Aug_2022.jpg",
+    alt: "Early morning scene on Marina Beach with walkers, Chennai",
+    credit: "Photo: L.vivian.richard, CC BY-SA 4.0"
+  },
+  // If a distinct "Culture" photo is not available or copyright-permitted at this time,
+  // we retain the original as a fallback, but encourage its replacement when a Chennai-specific image is sourced.
+  { 
+    name: "Culture",
+    img: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Chennai_railway_station.jpg",
+    alt: "Chennai Central railway station, a historic landmark with red brick frontage",
+    credit: "Photo: Unsure of licensing, please verify on Wikimedia Commons or update with known CC photo."
+  }
 ];
 
 function Navbar() {
@@ -98,11 +120,11 @@ function Sidebar() {
   );
 }
 
-function ExperienceCard({ image, title, desc, location, category }) {
+function ExperienceCard({ image, alt, credit, title, desc, location, category }) {
   return (
     <div className="cv-card experience-card">
       <div className="experience-img-wrapper">
-        <img src={image} alt={title} className="experience-img" />
+        <img src={image} alt={alt || title} className="experience-img" />
       </div>
       <div className="experience-body">
         <div className="experience-header">
@@ -111,6 +133,11 @@ function ExperienceCard({ image, title, desc, location, category }) {
         </div>
         <div className="experience-location">📍 {location}</div>
         <div className="experience-desc">{desc}</div>
+        {credit && (
+          <div style={{fontSize: "0.85em", color: "var(--text-secondary)", marginTop: 3}}>
+            <em>{credit}</em>
+          </div>
+        )}
         <button className="cv-btn experience-btn">See Details</button>
       </div>
     </div>
