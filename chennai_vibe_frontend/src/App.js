@@ -2,70 +2,36 @@ import React from 'react';
 import './App.css';
 
 /**
- * EXPERIENCE_IMAGES uses copyright-permitted, Chennai-specific images sourced from Wikimedia Commons,
- * each with proper credit and descriptive, local context alt text.
- * Image sources:
- *  - Marina Beach: https://commons.wikimedia.org/wiki/File:Marina_Beach_Chennai_Aug_2022.jpg (CC BY-SA 4.0 - L.vivian.richard)
- *  - Kapaleeshwarar Temple: https://commons.wikimedia.org/wiki/File:Kapaleeshwarar_Temple1.jpg (CC BY-SA 3.0 - Prateek Karandikar)
- *  - Sowcarpet Market: https://commons.wikimedia.org/wiki/File:Sowcarpet_street,_Chennai.jpg (CC BY-SA 3.0 - PlaneMad/Wikimedia)
+ * EXPERIENCE_LIST: Experience content cards with NO images/alt/credits;
+ * just titles, descriptions, locations, and categories.
  */
-const EXPERIENCE_IMAGES = [
+const EXPERIENCE_LIST = [
   {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Marina_Beach_Chennai_Aug_2022.jpg',
     title: 'Sunrise Yoga by Marina Beach',
     desc: 'Join a rejuvenating yoga session on the sands of iconic Marina Beach as the sun rises over the Bay of Bengal.',
     location: 'Marina Beach',
-    category: 'Wellness',
-    alt: 'Yoga session at sunrise on Marina Beach with Chennai city skyline in the background',
-    credit: 'Photo by L.vivian.richard, CC BY-SA 4.0, via Wikimedia Commons'
+    category: 'Wellness'
   },
   {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Kapaleeshwarar_Temple1.jpg',
     title: 'Sketch & Sip: Kapaleeshwarar Temple',
     desc: 'Capture the vibrant colors of Chennai’s most famous temple while local artists guide you in outdoor sketching sessions.',
     location: 'Mylapore',
-    category: 'Art & Creativity',
-    alt: 'View of Kapaleeshwarar Temple gopuram with intricate colorful sculptures in Mylapore, Chennai',
-    credit: 'Photo by Prateek Karandikar, CC BY-SA 3.0, via Wikimedia Commons'
+    category: 'Art & Creativity'
   },
   {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Sowcarpet_street%2C_Chennai.jpg',
     title: 'Chettinad Flavours Walk',
     desc: 'Guided street food tour through Sowcarpet’s bustling lanes, tasting local snacks, sweets, and Chettinad delicacies.',
     location: 'Sowcarpet',
-    category: 'Culinary',
-    alt: 'Busy Sowcarpet street with people, shops, and food vendors in Chennai',
-    credit: 'Photo by PlaneMad/Wikimedia, CC BY-SA 3.0'
+    category: 'Culinary'
   },
 ];
 
+// Filter categories as image-free (neutral placeholder icon area or left blank)
 const FILTER_CATEGORIES = [
-  { 
-    name: "Art & Creativity",
-    img: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Kapaleeshwarar_Temple1.jpg",
-    alt: "Colorful gopuram (temple tower) of Kapaleeshwarar Temple, Mylapore",
-    credit: "Photo: Prateek Karandikar, CC BY-SA 3.0"
-  },
-  {
-    name: "Culinary",
-    img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Sowcarpet_street%2C_Chennai.jpg",
-    alt: "Street food vendors and snack shops in a vibrant Sowcarpet lane, Chennai",
-    credit: "Photo: PlaneMad/Wikimedia, CC BY-SA 3.0"
-  },
-  {
-    name: "Wellness",
-    img: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Marina_Beach_Chennai_Aug_2022.jpg",
-    alt: "Early morning scene on Marina Beach with walkers, Chennai",
-    credit: "Photo: L.vivian.richard, CC BY-SA 4.0"
-  },
-  // If a distinct "Culture" photo is not available or copyright-permitted at this time,
-  // we retain the original as a fallback, but encourage its replacement when a Chennai-specific image is sourced.
-  { 
-    name: "Culture",
-    img: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Chennai_railway_station.jpg",
-    alt: "Chennai Central railway station, a historic landmark with red brick frontage",
-    credit: "Photo: Unsure of licensing, please verify on Wikimedia Commons or update with known CC photo."
-  }
+  { name: "Art & Creativity" },
+  { name: "Culinary" },
+  { name: "Wellness" },
+  { name: "Culture" }
 ];
 
 function Navbar() {
