@@ -65,7 +65,18 @@ function Sidebar() {
           <div className="filter-grid">
             {FILTER_CATEGORIES.map(cat => (
               <div key={cat.name} className="filter-cat">
-                <img src={cat.img} alt={cat.alt ? cat.alt : cat.name} className="filter-cat-img" />
+                {/* Placeholder image area to preserve spacing; left blank */}
+                <div
+                  className="filter-cat-img"
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 6,
+                    background: '#eee',
+                    marginBottom: 1
+                  }}
+                  aria-hidden="true"
+                />
                 <span>{cat.name}</span>
               </div>
             ))}
