@@ -49,12 +49,47 @@ const EXPERIENCE_LIST = [
 ];
 
 
-// Filter categories as image-free (neutral placeholder icon area or left blank)
+/**
+ * FILTER_CATEGORIES: Uses small relevant Chennai images for each filter.
+ * Sources: Wikimedia Commons (free use with attribution)
+ */
 const FILTER_CATEGORIES = [
-  { name: "Art & Creativity" },
-  { name: "Culinary" },
-  { name: "Wellness" },
-  { name: "Culture" }
+  {
+    name: "Art & Creativity",
+    img: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/9/91/Chennai_Kalakshetra_2019.jpg",
+      alt: "Classical dancers at Kalakshetra, Chennai",
+      credit: "Adam Jones, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Chennai_Kalakshetra_2019.jpg"
+    }
+  },
+  {
+    name: "Culinary",
+    img: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Idly_sambar_chutney.jpg",
+      alt: "South Indian breakfast with idli, sambar and chutney",
+      credit: "R Subramanian, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Idly_sambar_chutney.jpg"
+    }
+  },
+  {
+    name: "Wellness",
+    img: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Marina_Beach_Morning_yoga.JPG",
+      alt: "People doing yoga at sunrise on Marina Beach",
+      credit: "Arun Prasad, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Marina_Beach_Morning_yoga.JPG"
+    }
+  },
+  {
+    name: "Culture",
+    img: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/6/60/Mylapore_Temple_Festival_2019.jpg",
+      alt: "Mylapore temple festival parade",
+      credit: "Adam Jones, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Mylapore_Temple_Festival_2019.jpg"
+    }
+  }
 ];
 
 function Navbar() {
