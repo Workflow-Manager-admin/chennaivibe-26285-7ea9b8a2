@@ -177,7 +177,13 @@ body {
   gap: 24px;
 }
 
-/* Cards for experience listings, hosts, etc. */
+.cv-section-title {
+  margin: 0 0 13px 0;
+  font-weight: 700;
+  color: var(--cv-primary);
+  font-size: 1.28em;
+}
+
 .cv-card {
   background: var(--cv-card-bg);
   border-radius: var(--cv-border-radius);
@@ -185,11 +191,113 @@ body {
   padding: 28px 24px;
   color: var(--text-main);
   transition: box-shadow 0.18s;
+  margin-bottom: 0;
 }
 
 .cv-card:hover {
   box-shadow: 0 4px 24px rgba(148, 148, 148, 0.13);
 }
+
+.search-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 21px 15px;
+  background: linear-gradient(90deg,#fdf6ee 30%,#ffeaff 99%);
+}
+.search-input {
+  flex: 1;
+  padding: 9px 11px;
+  font-size: 1.03em;
+  border: 1px solid var(--divider);
+  border-radius: 7px;
+  outline: none;
+  background: #fff;
+  margin-right: 5px;
+}
+.search-btn {
+  padding: 10px 20px;
+}
+
+.experience-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.experience-card {
+  min-width: 260px;
+  max-width: 320px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 10px 0 rgba(210,210,210,0.13);
+}
+.experience-img-wrapper {
+  width: 100%;
+  height: 180px;
+  background: #eee;
+  overflow: hidden;
+  border-radius: var(--cv-border-radius) var(--cv-border-radius) 0 0;
+}
+.experience-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.17s;
+}
+.experience-card:hover .experience-img {
+  transform: scale(1.045);
+}
+.experience-body {
+  padding: 17px 17px 15px 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.experience-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+.experience-title {
+  font-size: 1.1em;
+}
+.experience-category {
+  background: var(--cv-primary);
+  color: #fff;
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 0.92em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.experience-location {
+  color: var(--cv-primary);
+  font-size: 0.98em;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.experience-desc {
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  min-height: 38px;
+  font-size: 1em;
+}
+.experience-btn {
+  font-size: 1em;
+  padding: 7px 18px;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+.community-card {
+  background: linear-gradient(98deg,#e4e1f5 60%,#fafbfc 100%);
+}
+
 
 /* --- FOOTER --- */
 .footer {
