@@ -118,7 +118,55 @@ body {
   max-width: 260px;
   padding: 0;
   background: none;
-  /* Placeholder for Filter components styles */
+}
+
+.filter-card {
+  padding: 24px 17px 18px 17px !important;
+}
+.filter-section {
+  margin: 16px 0 14px 0;
+}
+.sidebar-divider {
+  border: none;
+  border-bottom: 1px solid var(--divider);
+  margin: 13px 0;
+}
+.filter-title {
+  font-size: 0.99em;
+  font-weight: 600;
+  color: var(--cv-secondary);
+  margin-bottom: 7px;
+  display: inline-block;
+}
+.filter-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+  margin-top: 6px;
+}
+.filter-cat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 56px;
+  background: var(--cv-cat-bg);
+  padding: 4px 1px 5px 1px;
+  border-radius: 8px;
+  transition: box-shadow 0.13s, background 0.13s;
+  cursor: pointer;
+}
+.filter-cat:hover {
+  background: #efefef;
+  box-shadow: 0 1px 5px 0 rgba(180,180,180,0.12);
+}
+.filter-cat-img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1px;
 }
 
 /* --- CARD-BASED CONTENT AREA --- */
