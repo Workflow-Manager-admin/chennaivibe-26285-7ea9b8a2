@@ -5,46 +5,27 @@ import './App.css';
  * EXPERIENCE_LIST: Experience content cards with NO images/alt/credits;
  * just titles, descriptions, locations, and categories.
  */
-// Wikimedia-licensed (CC BY-SA 4.0 or Public Domain) Chennai image URLs and info for attribution
 const EXPERIENCE_LIST = [
   {
     title: 'Sunrise Yoga by Marina Beach',
     desc: 'Join a rejuvenating yoga session on the sands of iconic Marina Beach as the sun rises over the Bay of Bengal.',
     location: 'Marina Beach',
     category: 'Wellness',
-    image: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/7/77/Marina_Beach_-_panoramic_view%2C_Chennai.jpg",
-      alt: "Panoramic sunrise at Marina Beach, Chennai",
-      caption: "Marina Beach at sunrise",
-      credit: "Photo: Prateek Rungta, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Marina_Beach_-_panoramic_view,_Chennai.jpg"
-    }
+    image: null // No real image, leave space blank/neutral
   },
   {
     title: 'Sketch & Sip: Kapaleeshwarar Temple',
     desc: 'Capture the vibrant colors of Chennai’s most famous temple while local artists guide you in outdoor sketching sessions.',
     location: 'Mylapore',
     category: 'Art & Creativity',
-    image: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Kapaleeshwarar_Temple%2C_Chennai.jpg",
-      alt: "Kapaleeshwarar Temple, Chennai with colorful gopuram",
-      caption: "Kapaleeshwarar Temple",
-      credit: "Photo: Mohan S, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Kapaleeshwarar_Temple,_Chennai.jpg"
-    }
+    image: null
   },
   {
     title: 'Chettinad Flavours Walk',
     desc: 'Guided street food tour through Sowcarpet’s bustling lanes, tasting local snacks, sweets, and Chettinad delicacies.',
     location: 'Sowcarpet',
     category: 'Culinary',
-    image: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Sowcarpet_market_lane_chennai.jpg",
-      alt: "Bustling street food and market lane in Sowcarpet, Chennai",
-      caption: "Sowcarpet Market, the culinary hub",
-      credit: "Photo: Mylittlefinger, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Sowcarpet_market_lane_chennai.jpg"
-    }
+    image: null
   },
 ];
 
@@ -56,39 +37,19 @@ const EXPERIENCE_LIST = [
 const FILTER_CATEGORIES = [
   {
     name: "Art & Creativity",
-    img: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/9/91/Chennai_Kalakshetra_2019.jpg",
-      alt: "Classical dancers at Kalakshetra, Chennai",
-      credit: "Adam Jones, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Chennai_Kalakshetra_2019.jpg"
-    }
+    img: null // Neutral/blank
   },
   {
     name: "Culinary",
-    img: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Idly_sambar_chutney.jpg",
-      alt: "South Indian breakfast with idli, sambar and chutney",
-      credit: "R Subramanian, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Idly_sambar_chutney.jpg"
-    }
+    img: null
   },
   {
     name: "Wellness",
-    img: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Marina_Beach_Morning_yoga.JPG",
-      alt: "People doing yoga at sunrise on Marina Beach",
-      credit: "Arun Prasad, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Marina_Beach_Morning_yoga.JPG"
-    }
+    img: null
   },
   {
     name: "Culture",
-    img: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/6/60/Mylapore_Temple_Festival_2019.jpg",
-      alt: "Mylapore temple festival parade",
-      credit: "Adam Jones, Wikimedia Commons",
-      creditLink: "https://commons.wikimedia.org/wiki/File:Mylapore_Temple_Festival_2019.jpg"
-    }
+    img: null
   }
 ];
 
