@@ -5,26 +5,49 @@ import './App.css';
  * EXPERIENCE_LIST: Experience content cards with NO images/alt/credits;
  * just titles, descriptions, locations, and categories.
  */
+// Wikimedia-licensed (CC BY-SA 4.0 or Public Domain) Chennai image URLs and info for attribution
 const EXPERIENCE_LIST = [
   {
     title: 'Sunrise Yoga by Marina Beach',
     desc: 'Join a rejuvenating yoga session on the sands of iconic Marina Beach as the sun rises over the Bay of Bengal.',
     location: 'Marina Beach',
-    category: 'Wellness'
+    category: 'Wellness',
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/7/77/Marina_Beach_-_panoramic_view%2C_Chennai.jpg",
+      alt: "Panoramic sunrise at Marina Beach, Chennai",
+      caption: "Marina Beach at sunrise",
+      credit: "Photo: Prateek Rungta, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Marina_Beach_-_panoramic_view,_Chennai.jpg"
+    }
   },
   {
     title: 'Sketch & Sip: Kapaleeshwarar Temple',
     desc: 'Capture the vibrant colors of Chennai’s most famous temple while local artists guide you in outdoor sketching sessions.',
     location: 'Mylapore',
-    category: 'Art & Creativity'
+    category: 'Art & Creativity',
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Kapaleeshwarar_Temple%2C_Chennai.jpg",
+      alt: "Kapaleeshwarar Temple, Chennai with colorful gopuram",
+      caption: "Kapaleeshwarar Temple",
+      credit: "Photo: Mohan S, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Kapaleeshwarar_Temple,_Chennai.jpg"
+    }
   },
   {
     title: 'Chettinad Flavours Walk',
     desc: 'Guided street food tour through Sowcarpet’s bustling lanes, tasting local snacks, sweets, and Chettinad delicacies.',
     location: 'Sowcarpet',
-    category: 'Culinary'
+    category: 'Culinary',
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Sowcarpet_market_lane_chennai.jpg",
+      alt: "Bustling street food and market lane in Sowcarpet, Chennai",
+      caption: "Sowcarpet Market, the culinary hub",
+      credit: "Photo: Mylittlefinger, Wikimedia Commons",
+      creditLink: "https://commons.wikimedia.org/wiki/File:Sowcarpet_market_lane_chennai.jpg"
+    }
   },
 ];
+
 
 // Filter categories as image-free (neutral placeholder icon area or left blank)
 const FILTER_CATEGORIES = [
