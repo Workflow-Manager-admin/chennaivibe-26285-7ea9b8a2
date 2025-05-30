@@ -130,19 +130,8 @@ function ExperienceCard({ title, desc, location, category, image }) {
   return (
     <div className="cv-card experience-card">
       <div className="experience-img-wrapper">
-        {image ? (
-          <img
-            className="experience-img"
-            src={image.url}
-            alt={image.alt}
-            title={image.caption}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            loading="lazy"
-          />
-        ) : (
-          // Fallback in case no image is present
-          <div style={{ width: "100%", height: "100%", background: "#e0e0e0" }} />
-        )}
+        {/* Always render a neutral placeholder box (even if image prop exists) */}
+        <div style={{ width: "100%", height: "100%", background: "#e0e0e0" }} />
       </div>
       <div className="experience-body">
         <div className="experience-header">
@@ -151,31 +140,7 @@ function ExperienceCard({ title, desc, location, category, image }) {
         </div>
         <div className="experience-location">📍 {location}</div>
         <div className="experience-desc">{desc}</div>
-        {image && (
-          <div
-            style={{
-              fontSize: "0.82em",
-              color: "var(--text-secondary)",
-              margin: "7px 0 0 0"
-            }}
-          >
-            <span style={{ fontStyle: "italic" }}>
-              {image.caption}
-            </span>
-            <span>
-              {" "}
-              <a
-                href={image.creditLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "#888", marginLeft: 8, textDecoration: "underline" }}
-                tabIndex={0}
-              >
-                {image.credit}
-              </a>
-            </span>
-          </div>
-        )}
+        {/* No captions, attributions, or external links for images */}
         <button className="cv-btn experience-btn" style={{ marginTop: "9px" }}>
           See Details
         </button>
