@@ -60,51 +60,66 @@ function Navbar() {
   );
 }
 
+/**
+ * Sidebar (Filters)
+ * On large screens, it's shown left. On mobile, it's hidden for space.
+ * Use .cv-card for card look and visible section headings.
+ */
 function Sidebar() {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" aria-label="Sidebar filters">
       <div className="cv-card filter-card">
-        <h3 style={{ marginTop: 0, color: "var(--cv-primary)" }}>Filters</h3>
-        <div className="filter-section">
-          <span className="filter-title">Category</span>
+        <h2 className="cv-section-title" style={{marginTop: 0, marginBottom: 16}}>Filters</h2>
+
+        {/* Filter: Category */}
+        <section className="filter-section" aria-labelledby="filter-cat-title">
+          <span id="filter-cat-title" className="filter-title">Category</span>
           <div className="filter-grid">
             {FILTER_CATEGORIES.map(cat => (
               <div key={cat.name} className="filter-cat">
-                {/* Placeholder neutral div occupies image space; keeps layout/height */}
+                {/* Neutral placeholder for icon/image */}
                 <div
                   className="filter-cat-img"
                   style={{
                     width: 30,
                     height: 30,
                     borderRadius: 6,
-                    background: '#eee',
+                    background: '#e2e2e2',
                     marginBottom: 1
                   }}
                   aria-hidden="true"
                 />
                 <span style={{ display: "block", textAlign: "center" }}>{cat.name}</span>
-                {/* blank for attribution area, maintains grid height */}
-                <span style={{
-                  fontSize: "0.75em",
-                  color: "#a3a3a3",
-                  display: "block",
-                  marginTop: 1,
-                  minHeight: 15
-                }} />
+                <span
+                  style={{
+                    fontSize: "0.75em",
+                    color: "#b8b8b8",
+                    display: "block",
+                    marginTop: 1,
+                    minHeight: 15
+                  }}
+                  aria-hidden="true"
+                />
               </div>
             ))}
           </div>
-        </div>
+        </section>
+
         <hr className="sidebar-divider" />
-        <div className="filter-section">
-          <span className="filter-title">Price</span>
+        
+        {/* Filter: Price */}
+        <section className="filter-section" aria-labelledby="filter-price-title">
+          <span id="filter-price-title" className="filter-title">Price</span>
           <input type="range" min="0" max="1000" step="50" style={{ width: '100%' }} />
-        </div>
+        </section>
+
         <hr className="sidebar-divider" />
-        <div className="filter-section">
-          <span className="filter-title">Date</span>
+        
+        {/* Filter: Date */}
+        <section className="filter-section" aria-labelledby="filter-date-title">
+          <span id="filter-date-title" className="filter-title">Date</span>
           <input type="date" style={{ width: '100%' }} />
-        </div>
+        </section>
       </div>
     </aside>
   );
