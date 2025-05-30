@@ -12,7 +12,10 @@
   --text-main: #232323;
   --text-secondary: #636363;
   --divider: #e5e5e5;
+  --cv-active: #E87A41;
+  --cv-cat-bg: #f5f5f8;
 }
+
 
 body {
   margin: 0;
