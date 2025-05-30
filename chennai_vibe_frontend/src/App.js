@@ -46,6 +46,8 @@ const FILTER_CATEGORIES = [
  * Contains branding and primary navigation.
  */
 function Navbar() {
+  // Determine active segment for mobile-optimized nav in future
+  const location = useLocation();
   return (
     <nav className="navbar" role="navigation" aria-label="Primary">
       <div className="cv-container" style={{ alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
@@ -54,11 +56,47 @@ function Navbar() {
           ChennaiVibe
         </div>
         <ul className="nav-menu">
-          <li><a href="#" className="active">Home</a></li>
-          <li><a href="#">Discover</a></li>
-          <li><a href="#">Map</a></li>
-          <li><a href="#">Wishlist</a></li>
-          <li><a href="#">Host Dashboard</a></li>
+          <li>
+            <NavLink
+              end
+              to="/"
+              className={({ isActive }) => isActive ? "active" : ""}
+            >
+              Discover
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/map"
+              className={({ isActive }) => isActive ? "active" : ""}
+            >
+              Map
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/wishlist"
+              className={({ isActive }) => isActive ? "active" : ""}
+            >
+              Wishlist
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/host"
+              className={({ isActive }) => isActive ? "active" : ""}
+            >
+              Host Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/reviews"
+              className={({ isActive }) => isActive ? "active" : ""}
+            >
+              Reviews
+            </NavLink>
+          </li>
         </ul>
         <button className="cv-btn" aria-label="Sign In">Sign In</button>
       </div>
