@@ -97,11 +97,11 @@ function Sidebar() {
   );
 }
 
-function ExperienceCard({ image, alt, credit, title, desc, location, category }) {
+function ExperienceCard({ title, desc, location, category }) {
   return (
     <div className="cv-card experience-card">
-      <div className="experience-img-wrapper">
-        <img src={image} alt={alt || title} className="experience-img" />
+      <div className="experience-img-wrapper" style={{ background: "#f3f3f3" }}>
+        {/* No image or alt text; empty block for consistent layout */}
       </div>
       <div className="experience-body">
         <div className="experience-header">
@@ -110,11 +110,7 @@ function ExperienceCard({ image, alt, credit, title, desc, location, category })
         </div>
         <div className="experience-location">📍 {location}</div>
         <div className="experience-desc">{desc}</div>
-        {credit && (
-          <div style={{fontSize: "0.85em", color: "var(--text-secondary)", marginTop: 3}}>
-            <em>{credit}</em>
-          </div>
-        )}
+        {/* No credit attribution */}
         <button className="cv-btn experience-btn">See Details</button>
       </div>
     </div>
@@ -141,12 +137,9 @@ function ContentArea() {
           Trending Experiences in Chennai
         </h2>
         <div className="experience-grid">
-          {EXPERIENCE_IMAGES.map(exp => (
+          {EXPERIENCE_LIST.map(exp => (
             <ExperienceCard
               key={exp.title}
-              image={exp.url}
-              alt={exp.alt}
-              credit={exp.credit}
               title={exp.title}
               desc={exp.desc}
               location={exp.location}
