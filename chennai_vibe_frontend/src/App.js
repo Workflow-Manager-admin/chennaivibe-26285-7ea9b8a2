@@ -35,11 +35,15 @@ const FILTER_CATEGORIES = [
   { name: "Culture" }
 ];
 
+/**
+ * Navigation Bar, always visible at the top.
+ * Contains branding and primary navigation.
+ */
 function Navbar() {
   return (
-    <nav className="navbar">
+    <nav className="navbar" role="navigation" aria-label="Primary">
       <div className="cv-container" style={{ alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
-        <div className="logo">
+        <div className="logo" tabIndex={0}>
           <span className="logo-symbol" />
           ChennaiVibe
         </div>
