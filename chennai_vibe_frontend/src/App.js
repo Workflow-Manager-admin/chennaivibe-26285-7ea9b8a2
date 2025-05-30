@@ -283,10 +283,17 @@ function App() {
       <Navbar />
       <main className="main-content" role="main">
         <div className="cv-container">
-          {/* Sidebar for filters (hidden on mobile via CSS) */}
           <Sidebar />
-          {/* Main card-based content area */}
-          <ContentArea />
+          {/* Main Route Content */}
+          <Routes>
+            <Route path="/" element={<Discover />} />
+            <Route path="/discover" element={<Discover />} />
+            <Route path="/map" element={<MapView />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/host" element={<HostDashboard />} />
+            <Route path="/reviews" element={<Reviews />} />
+            {/* In future: add 404 page or redirect */}
+          </Routes>
         </div>
       </main>
       <Footer />
