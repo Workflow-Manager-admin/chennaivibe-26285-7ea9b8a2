@@ -123,19 +123,59 @@ function Sidebar() {
           <div className="filter-grid">
             {FILTER_CATEGORIES.map(cat => (
               <div key={cat.name} className="filter-cat">
-                {/* Placeholder image area to preserve spacing; left blank */}
-                <div
-                  className="filter-cat-img"
+                {cat.img ? (
+                  <a
+                    href={cat.img.creditLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={0}
+                    aria-label={`${cat.name} - View photo credits`}
+                    style={{ outline: "none" }}
+                  >
+                    <img
+                      src={cat.img.url}
+                      alt={cat.img.alt}
+                      className="filter-cat-img"
+                      style={{ width: 30, height: 30, objectFit: "cover", borderRadius: 6, marginBottom: 1 }}
+                      loading="lazy"
+                      title={cat.name}
+                    />
+                  </a>
+                ) : (
+                  <div
+                    className="filter-cat-img"
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 6,
+                      background: '#eee',
+                      marginBottom: 1
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span style={{ display: "block", textAlign: "center" }}>{cat.name}</span>
+                <span
                   style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 6,
-                    background: '#eee',
-                    marginBottom: 1
+                    fontSize: "0.75em",
+                    color: "#a3a3a3",
+                    display: "block",
+                    marginTop: 1,
+                    minHeight: 15
                   }}
-                  aria-hidden="true"
-                />
-                <span>{cat.name}</span>
+                >
+                  {cat.img ? (
+                    <a
+                      href={cat.img.creditLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "#b7b7b7", textDecoration: "underline" }}
+                      tabIndex={0}
+                    >
+                      {cat.img.credit}
+                    </a>
+                  ) : null}
+                </span>
               </div>
             ))}
           </div>
@@ -240,6 +280,7 @@ function ContentArea() {
               desc={exp.desc}
               location={exp.location}
               category={exp.category}
+              image={exp.image}
             />
           ))}
         </div>
