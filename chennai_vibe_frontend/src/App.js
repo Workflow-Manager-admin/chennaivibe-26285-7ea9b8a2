@@ -1,5 +1,11 @@
 import React from 'react';
 import './App.css';
+import { Routes, Route, NavLink, useLocation } from 'react-router-dom';
+import Discover from './Discover';
+import MapView from './MapView';
+import Wishlist from './Wishlist';
+import HostDashboard from './HostDashboard';
+import Reviews from './Reviews';
 
 /**
  * Experience meta data (now with no image fields for clean UI)
