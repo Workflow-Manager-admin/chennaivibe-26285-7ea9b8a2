@@ -125,10 +125,13 @@ function Sidebar() {
   );
 }
 
+/**
+ * Card representing one experience (content grid)
+ * Placeholder used for image, card is visually separated
+ */
 function ExperienceCard({ title, desc, location, category }) {
   return (
-    <div className="cv-card experience-card">
-      {/* Placeholder for the image: keeps space for design consistency */}
+    <div className="cv-card experience-card" tabIndex={0} aria-label={`${title} card`}>
       <div className="experience-img-wrapper">
         <div
           style={{
@@ -146,7 +149,6 @@ function ExperienceCard({ title, desc, location, category }) {
         </div>
         <div className="experience-location">📍 {location}</div>
         <div className="experience-desc">{desc}</div>
-        {/* Attribution removed: this blank space maintains visual alignment */}
         <span style={{
           fontSize: ".93em",
           color: "#b4b4b4",
@@ -162,11 +164,15 @@ function ExperienceCard({ title, desc, location, category }) {
   );
 }
 
+/**
+ * The main content area: contains search bar, trending cards, community invite.
+ * Responsive design; only content area scrolls if required.
+ */
 function ContentArea() {
   return (
-    <section className="cv-content-area">
-      {/* Search Bar */}
-      <div className="cv-card search-card">
+    <section className="cv-content-area" aria-label="Main Content Area">
+      {/* Search Bar Row */}
+      <div className="cv-card search-card" role="search">
         <input
           type="text"
           placeholder="Search for experiences, hosts, or places..."
@@ -176,8 +182,8 @@ function ContentArea() {
         <button className="cv-btn search-btn">Search</button>
       </div>
 
-      {/* Trending Collections */}
-      <div className="cv-card">
+      {/* Trending Experiences */}
+      <div className="cv-card" aria-label="Trending Experiences">
         <h2 className="cv-section-title">
           Trending Experiences in Chennai
         </h2>
@@ -194,8 +200,8 @@ function ContentArea() {
         </div>
       </div>
 
-      {/* Showcase / Community */}
-      <div className="cv-card community-card">
+      {/* Community Card */}
+      <div className="cv-card community-card" aria-label="Community Section">
         <h3 className="cv-section-title" style={{ marginBottom: 10 }}>
           Join the Vibe Community
         </h3>
@@ -207,9 +213,12 @@ function ContentArea() {
   );
 }
 
+/**
+ * Persistent footer at bottom.
+ */
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" role="contentinfo">
       <span>
         © {new Date().getFullYear()} ChennaiVibe. All rights reserved.
         &nbsp;|&nbsp;
@@ -219,14 +228,20 @@ function Footer() {
   );
 }
 
-// PUBLIC_INTERFACE
+/**
+ * PUBLIC_INTERFACE
+ * Main Application Container: explicitly divides into Navbar, Sidebar, Main Content, and Footer.
+ * All sections styled/segmented and labeled for clarity.
+ */
 function App() {
   return (
     <div className="app">
       <Navbar />
-      <main className="main-content">
+      <main className="main-content" role="main">
         <div className="cv-container">
+          {/* Sidebar for filters (hidden on mobile via CSS) */}
           <Sidebar />
+          {/* Main card-based content area */}
           <ContentArea />
         </div>
       </main>
@@ -236,4 +251,3 @@ function App() {
 }
 
 export default App;
-
