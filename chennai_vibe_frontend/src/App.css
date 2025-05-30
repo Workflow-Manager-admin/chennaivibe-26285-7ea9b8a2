@@ -48,12 +48,10 @@ body {
   z-index: 100;
   box-shadow: 0 1px 4px rgba(100,100,100,0.03);
 }
-
-/* Placeholder for logo/branding styling */
 .logo {
-  font-size: 1.2rem;
+  font-size: 1.22rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   color: var(--cv-secondary);
   display: flex;
   align-items: center;
@@ -61,12 +59,34 @@ body {
 
 .logo-symbol {
   display: inline-block;
-  background: linear-gradient(90deg, var(--cv-primary), var(--cv-secondary));
+  background: linear-gradient(90deg,var(--cv-primary), var(--cv-secondary));
   width: 22px;
   height: 22px;
   border-radius: 5px;
   margin-right: 0.5em;
-  content: "";
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+}
+.nav-menu li {}
+.nav-menu a {
+  padding: 5px 4px;
+  color: var(--cv-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.05em;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+.nav-menu a.active,
+.nav-menu a:hover {
+  color: var(--cv-active);
+  border-bottom: 3px solid var(--cv-active);
 }
 
 /* --- MAIN CONTAINER --- */
