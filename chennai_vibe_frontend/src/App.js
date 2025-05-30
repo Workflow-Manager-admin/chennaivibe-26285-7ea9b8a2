@@ -99,7 +99,7 @@ function Sidebar() {
           <div className="filter-grid">
             {FILTER_CATEGORIES.map(cat => (
               <div key={cat.name} className="filter-cat">
-                <img src={cat.img} alt={cat.name} className="filter-cat-img" />
+                <img src={cat.img} alt={cat.alt ? cat.alt : cat.name} className="filter-cat-img" />
                 <span>{cat.name}</span>
               </div>
             ))}
@@ -168,6 +168,8 @@ function ContentArea() {
             <ExperienceCard
               key={exp.title}
               image={exp.url}
+              alt={exp.alt}
+              credit={exp.credit}
               title={exp.title}
               desc={exp.desc}
               location={exp.location}
