@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 /**
- * Experience meta data, with image search/keywords and Wikimedia fallback
- * Each image is:
- *   - free to use for commercial purposes
- *   - requires attribution (in attribution field)
+ * Experience meta data, with image search/keywords for Wikimedia Commons fetch
  */
 const EXPERIENCE_LIST_META = [
   {
@@ -14,8 +11,8 @@ const EXPERIENCE_LIST_META = [
     location: 'Marina Beach',
     category: 'Wellness',
     imgKeyword: 'Marina Beach sunrise',
-    imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Sunrise_Marina_Beach_Chennai.jpg/640px-Sunrise_Marina_Beach_Chennai.jpg',
-    attribution: 'Photo: Samuelraj, CC-BY-SA 4.0 via Wikimedia Commons'
+    fallbackUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Sunrise_Marina_Beach_Chennai.jpg/640px-Sunrise_Marina_Beach_Chennai.jpg',
+    fallbackAttribution: 'Photo: Samuelraj, CC-BY-SA 4.0 via Wikimedia Commons'
   },
   {
     title: 'Sketch & Sip: Kapaleeshwarar Temple',
@@ -23,8 +20,8 @@ const EXPERIENCE_LIST_META = [
     location: 'Mylapore',
     category: 'Art & Creativity',
     imgKeyword: 'Kapaleeshwarar Temple',
-    imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Kapaleeshwarar_Temple_Chennai_Gopuram_2018.jpg/640px-Kapaleeshwarar_Temple_Chennai_Gopuram_2018.jpg',
-    attribution: 'Photo: Sujatha Vempaty, CC-BY-SA 4.0 via Wikimedia Commons'
+    fallbackUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Kapaleeshwarar_Temple_Chennai_Gopuram_2018.jpg/640px-Kapaleeshwarar_Temple_Chennai_Gopuram_2018.jpg',
+    fallbackAttribution: 'Photo: Sujatha Vempaty, CC-BY-SA 4.0 via Wikimedia Commons'
   },
   {
     title: 'Chettinad Flavours Walk',
@@ -32,19 +29,19 @@ const EXPERIENCE_LIST_META = [
     location: 'Sowcarpet',
     category: 'Culinary',
     imgKeyword: 'Chennai street food',
-    imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Samosa_and_sweets_Chennai_street_food.JPG/640px-Samosa_and_sweets_Chennai_street_food.JPG',
-    attribution: 'Photo: Jugni, CC-BY-SA 4.0 via Wikimedia Commons'
+    fallbackUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Samosa_and_sweets_Chennai_street_food.JPG/640px-Samosa_and_sweets_Chennai_street_food.JPG',
+    fallbackAttribution: 'Photo: Jugni, CC-BY-SA 4.0 via Wikimedia Commons'
   },
 ];
 
 /**
- * Sidebar filter categories with relevant, recent, copyright-cleared images (small crops/impressive Chennai icons)
+ * Sidebar filter categories with Wikimedia Commons search keywords for live thumbnails
  */
 const FILTER_CATEGORIES = [
   {
     name: "Art & Creativity",
-    // Image of Chennai mural art (free use, attribution below)
-    img: {
+    imgKeyword: "Chennai mural art",
+    fallbackImg: {
       url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Metro_Rail_Mural_of_Chennai_Central.jpg/120px-Metro_Rail_Mural_of_Chennai_Central.jpg",
       alt: "Colorful mural on Chennai Metro pillar",
       attribution: "Photo: McKay Savage, CC-BY 2.0, via Wikimedia Commons"
@@ -52,8 +49,8 @@ const FILTER_CATEGORIES = [
   },
   {
     name: "Culinary",
-    // Image: South Indian cuisine banana leaf meal in Chennai, Wikimedia
-    img: {
+    imgKeyword: "Chennai banana leaf meal",
+    fallbackImg: {
       url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Vegetarian_meal_Banana_leaf_Chennai.jpg/140px-Vegetarian_meal_Banana_leaf_Chennai.jpg",
       alt: "Banana leaf meal, Chennai",
       attribution: "Photo: Biswarup Ganguly, CC-BY 3.0, via Wikimedia Commons"
@@ -61,8 +58,8 @@ const FILTER_CATEGORIES = [
   },
   {
     name: "Wellness",
-    // Yoga at Marina Beach, Wikimedia
-    img: {
+    imgKeyword: "Yoga Marina Beach Chennai",
+    fallbackImg: {
       url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/International_Yoga_Day_%40_Marina_Beach_Chennai_-_2_%282016%29.jpg/120px-International_Yoga_Day_%40_Marina_Beach_Chennai_-_2_%282016%29.jpg",
       alt: "Yoga event at Marina Beach, Chennai",
       attribution: "Photo: Indian Navy, GODL-India, via Wikimedia Commons"
@@ -70,7 +67,8 @@ const FILTER_CATEGORIES = [
   },
   {
     name: "Culture",
-    img: {
+    imgKeyword: "Bharatanatyam Chennai",
+    fallbackImg: {
       url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Bharatanatyam_performance_Chennai_Sabha.jpg/120px-Bharatanatyam_performance_Chennai_Sabha.jpg",
       alt: "Bharatanatyam dancer in sabha, Chennai",
       attribution: "Photo: Saranya Ghosh, CC-BY-SA 4.0, via Wikimedia Commons"
@@ -78,19 +76,132 @@ const FILTER_CATEGORIES = [
   }
 ];
 
+/**
+ * Helper: Wikimedia Commons API search request for thumbnail image and attribution.
+ * Returns a {imageUrl, alt, attribution, pageUrl} object or null.
+ */
+async function fetchWikimediaImage(keyword, minWidth = 320) {
+  // Uses Wikimedia Commons API to search for relevant images by keyword
+  const url = `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages|imageinfo&generator=search&gsrlimit=1&gsrsearch=${encodeURIComponent(
+    keyword
+  )}&piprop=thumbnail|original&pilicense=any&pithumbsize=${minWidth}&iiprop=extmetadata|url`;
+
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (!data.query || !data.query.pages) return null;
+    const page = Object.values(data.query.pages)[0];
+    // Check for thumbnail and attribution/metadata:
+    let imageUrl = page.thumbnail?.source || page.original?.source;
+    let alt = page.title;
+    let pageUrl = `https://commons.wikimedia.org/wiki/${page.title.replace(/ /g, "_")}`;
+    // Attribution from extmetadata, fallback to title
+    let attribution =
+      page.imageinfo &&
+      page.imageinfo[0] &&
+      page.imageinfo[0].extmetadata &&
+      page.imageinfo[0].extmetadata.Artist
+        ? page.imageinfo[0].extmetadata.Artist.value.replace(/(<([^>]+)>)/gi, "")
+        : page.title;
+    return { imageUrl, alt, attribution, pageUrl };
+  } catch (e) {
+    return null;
+  }
+}
 
 /**
- * Fetch "real-time" image thumbnails for main EX cards from Wikimedia API, fallback to static (for demo/no CORS)
- * This makes it trivial for maintainers to change images, and is copyright-safe!
+ * Hook for fetching Wikimedia images for experiences (with fallback to static for demo or network error)
  */
 function useWikimediaImages(experiencesMeta) {
-  // We'll skip actual API calls due to CORS and time; static images provided above are all recent (~2016-2019)
-  // If adopting APIs: Use Wikimedia's search API; see comment below for code stub.
-  return experiencesMeta.map((x) => ({
-    ...x,
-    imgFinal: x.imgUrl,
-    attribution: x.attribution
-  }));
+  const [experiences, setExperiences] = useState(
+    experiencesMeta.map((x) => ({
+      ...x,
+      imgFinal: x.fallbackUrl,
+      attributionFinal: x.fallbackAttribution,
+      attributionUrl: x.fallbackUrl
+    }))
+  );
+
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      const updated = await Promise.all(
+        experiencesMeta.map(async (exp, idx) => {
+          const wikidata = await fetchWikimediaImage(exp.imgKeyword, 480);
+          if (wikidata && wikidata.imageUrl) {
+            return {
+              ...exp,
+              imgFinal: wikidata.imageUrl,
+              attributionFinal: wikidata.attribution,
+              attributionUrl: wikidata.pageUrl,
+              alt: wikidata.alt
+            };
+          } else {
+            return {
+              ...exp,
+              imgFinal: exp.fallbackUrl,
+              attributionFinal: exp.fallbackAttribution,
+              attributionUrl: exp.fallbackUrl,
+              alt: exp.title
+            };
+          }
+        })
+      );
+      if (isMounted) setExperiences(updated);
+    })();
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line
+  }, [experiencesMeta]);
+  return experiences;
+}
+
+/**
+ * Hook for filter categories (images by Wikimedia, fallback to static)
+ */
+function useWikimediaCategoryImages(categoriesMeta) {
+  const [categories, setCategories] = useState(
+    categoriesMeta.map((cat) => ({
+      ...cat,
+      img: { ...cat.fallbackImg }
+    }))
+  );
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      const updated = await Promise.all(
+        categoriesMeta.map(async (cat) => {
+          const wikidata = await fetchWikimediaImage(cat.imgKeyword, 128);
+          if (wikidata && wikidata.imageUrl) {
+            return {
+              ...cat,
+              img: {
+                url: wikidata.imageUrl,
+                alt: wikidata.alt,
+                attribution: wikidata.attribution,
+                pageUrl: wikidata.pageUrl
+              }
+            };
+          } else {
+            return {
+              ...cat,
+              img: {
+                ...cat.fallbackImg,
+                pageUrl: cat.fallbackImg.url
+              }
+            };
+          }
+        })
+      );
+      if (isMounted) setCategories(updated);
+    })();
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line
+  }, [categoriesMeta]);
+  return categories;
 }
 
 function Navbar() {
@@ -115,6 +226,7 @@ function Navbar() {
 }
 
 function Sidebar() {
+  const categories = useWikimediaCategoryImages(FILTER_CATEGORIES);
   return (
     <aside className="sidebar">
       <div className="cv-card filter-card">
@@ -122,13 +234,13 @@ function Sidebar() {
         <div className="filter-section">
           <span className="filter-title">Category</span>
           <div className="filter-grid">
-            {FILTER_CATEGORIES.map(cat => (
+            {categories.map(cat => (
               <div key={cat.name} className="filter-cat">
-                {cat.img ?
+                {cat.img && cat.img.url ?
                   <>
                     <img
                       src={cat.img.url}
-                      alt={cat.img.alt}
+                      alt={cat.img.alt || cat.name}
                       className="filter-cat-img"
                       style={{ objectFit: "cover" }}
                       loading="lazy"
@@ -144,11 +256,12 @@ function Sidebar() {
                       }}
                     >
                       <a
-                        href={cat.img.url}
+                        href={cat.img.pageUrl || cat.img.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ color: "#a3a3a3", textDecoration: "underline dotted", wordBreak: "break-word" }}
                       >credit</a>
+                      {cat.img.attribution ? <>&nbsp;&ndash; {cat.img.attribution}</> : null}
                     </span>
                   </>
                   :
@@ -193,14 +306,14 @@ function Sidebar() {
   );
 }
 
-function ExperienceCard({ title, desc, location, category, imgFinal, attribution }) {
+function ExperienceCard({ title, desc, location, category, imgFinal, alt, attributionFinal, attributionUrl }) {
   return (
     <div className="cv-card experience-card">
       <div className="experience-img-wrapper">
         {imgFinal ? (
           <img
             src={imgFinal}
-            alt={`${title} in ${location} - ${category}`}
+            alt={alt || `${title} in ${location} - ${category}`}
             className="experience-img"
             loading="lazy"
             style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "14px 14px 0 0" }}
@@ -217,11 +330,11 @@ function ExperienceCard({ title, desc, location, category, imgFinal, attribution
         <div className="experience-location">📍 {location}</div>
         <div className="experience-desc">{desc}</div>
         <span style={{ fontSize: ".93em", color: "#b4b4b4", minHeight: 12, display: "inline-block", marginBottom: 2 }}>
-          {attribution && (
+          {attributionFinal && (
             <>
-              <a href={imgFinal} target="_blank" rel="noopener noreferrer" style={{ color: "#b4b4b4", textDecoration: "underline dotted", wordBreak: "break-all" }}>
+              <a href={attributionUrl || imgFinal} target="_blank" rel="noopener noreferrer" style={{ color: "#b4b4b4", textDecoration: "underline dotted", wordBreak: "break-all" }}>
                 credit
-              </a> &ndash; {attribution}
+              </a> &ndash; {attributionFinal}
             </>
           )}
         </span>
@@ -234,7 +347,7 @@ function ExperienceCard({ title, desc, location, category, imgFinal, attribution
 }
 
 function ContentArea() {
-  // "Real-time" images for the experiences, from Wikimedia + demo-stable fallback
+  // "Real-time" images for the experiences, from Wikimedia live fetch, fallback to demo-stable static images
   const experienceList = useWikimediaImages(EXPERIENCE_LIST_META);
 
   return (
@@ -264,7 +377,9 @@ function ContentArea() {
               location={exp.location}
               category={exp.category}
               imgFinal={exp.imgFinal}
-              attribution={exp.attribution}
+              attributionFinal={exp.attributionFinal}
+              attributionUrl={exp.attributionUrl}
+              alt={exp.alt}
             />
           ))}
         </div>
